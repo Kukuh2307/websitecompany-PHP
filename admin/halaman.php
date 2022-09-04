@@ -72,6 +72,7 @@ if($gagal) {
   <tbody>
     <?php
     $sqltambahan = "";
+    $batashalaman = 3;
     if($katakunci != ""){
       $array_katakunci = explode(" ",$katakunci);
       for($x=0;$x < count($array_katakunci);$x++) {
@@ -79,9 +80,17 @@ if($gagal) {
       }
       $sqltambahan = "WHERE".implode(" or ",$sqlcari);
     }  
-    $queryread = "SELECT * FROM halaman $sqltambahan ORDER BY id ASC";
+    $queryread = "SELECT * FROM halaman $sqltambahan";
+
+    // membuat pagination
+    $page = isset($_GET["page"])?(int)$_GET["page"]:1;
+    $start = ($page > 1) ? ($page * $batashalaman) - $batashalaman:0;
     $kirimread = mysqli_query($koneksi,$queryread);
-    $nomor = "1";
+    $total = mysqli_num_rows($kirimread);
+    $pages = ceil($total/$batashalaman);
+    $nomor = $start + 1;
+    $queryread = $queryread."order by id asc limit $start,$batashalaman";
+    $kirimread = mysqli_query($koneksi,$queryread);
 
     // looping
     while($looping = mysqli_fetch_assoc($kirimread)) {
@@ -102,4 +111,21 @@ if($gagal) {
     ?>
   </tbody>
 </table>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <?php 
+        $cari = isset($_GET['cari'])? $_GET['cari'] : "";
+
+        for($i=1; $i <= $pages; $i++){
+            ?>
+    <li class="page-item">
+      <a class="page-link"
+        href="halaman.php?katakunci=<?php echo $katakunci?>&cari=<?php echo $cari?>&page=<?php echo $i ?>"><?php echo $i ?></a>
+    </li>
+    <?php
+        }
+        ?>
+  </ul>
+</nav>
 <?php require 'inc_footer.php' ?>

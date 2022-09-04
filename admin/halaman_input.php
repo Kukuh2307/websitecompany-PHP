@@ -6,6 +6,12 @@ $kutipan = "";
 $gagal = "";
 $sukses ="";
 
+if(isset($_GET['id'])){
+  $id = $_GET['id'];
+}else{
+  $id = "";
+}
+
 // mengecek tombol simpan
 // menangkap isi nilai yang ada di form dan di sempan ke dalam variable
 if(isset($_POST['simpan'])){
@@ -14,17 +20,25 @@ if(isset($_POST['simpan'])){
   $kutipan = $_POST['kutipan'];
 
 // menegecek apakah data terisi semua
-  if($judul == "" or $isi =="" or $kutipan =="") {
-    $gagal = "gagal memasukkan data";
+  if($judul == "" && $isi =="" && $kutipan == "") {
+    $gagal = "silahkan memasukkan semua data";
   } else {
-    $sukses;
+    $sukses = "data berhasil di simpan";
   }
 
-  if($sukses){
-    $queryinsert = "insert into halaman(judul,kutipan,isi) values ('$judul','$kutipan','$isi')";
-    $kiriminsert = mysqli_query($koneksi,$queryinsert);
-  } else {
-    $gagal = "Silahkan masukkan semua data";
+  if(empty($gagal)){
+    if($id !="") {
+      $queryupdate = "update halaman set judul = '$judul',kutipan='$kutipan',isi='$isi',tgl_isi=now() where id = '$id'";
+      $kirimiupdate = mysqli_query($koneksi,$queryupdate);
+    } else {
+      $queryinsert = "insert into halaman(judul,kutipan,isi) values ('$judul','$kutipan','$isi')";
+      $kiriminsert = mysqli_query($koneksi,$queryinsert);
+    }
+    if($kiriminsert) {
+      $sukses = "data berhasil di inputkan";
+    } else {
+      $gagal = "gagal memasukkan data";
+    }
   }
 }
 ?>
@@ -58,7 +72,7 @@ if($gagal) {
   <div class="mb-3 row">
     <label for="judul" class="col-sm-2 col-form-label">judul</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="judul" value=" <?php echo $judul ?> " name="judul" required>
+      <input type="text" class="form-control" id="judul" value=" <?php echo $judul ?> " name="judul">
     </div>
   </div>
 
@@ -66,7 +80,7 @@ if($gagal) {
   <div class="mb-3 row">
     <label for="kutipan" class="col-sm-2 col-form-label">kutipan</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="kutipan" value=" <?php echo $kutipan ?> " name="kutipan" required>
+      <input type="text" class="form-control" id="kutipan" value=" <?php echo $kutipan ?> " name="kutipan">
     </div>
   </div>
 

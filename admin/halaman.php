@@ -1,6 +1,27 @@
 <?php require 'inc_header.php' ?>
 <?php 
     $katakunci = (isset($_POST["katakunci"]))?$_POST["katakunci"]:"";
+    // untuk menhapus data
+    // apabila op ada nilainya berupa id maka ambil dan jadikan sebagai variable dengan nama op
+    if(isset($_GET["op"])){
+      $op = $_GET["op"];
+    } else {
+      $op = "";
+    }
+    $sukses = "";
+    $gagal = "";
+    if($op == "delete") {
+      // menangkap id dari op dan di kirimkan ke database
+      $id = $_GET["id"];
+      $querydelete = "DELETE FROM halaman WHERE id ='$id'";
+      $kirimdelete = mysqli_query($koneksi,$querydelete);
+      // apabila data berhasil di hapus maka tampilkan pesan
+      if($kirimdelete){
+        $sukses = "data berhasil di hapus";
+      } else {
+        $gagal = "data gagal di hapus";
+      }
+    }
     ?>
 <h1>Halaman Admin</h1>
 <p>
@@ -8,6 +29,26 @@
     <input type="button" class="btn btn-primary" value="Buat halaman baru">
   </a>
 </p>
+<?php 
+if($sukses) {
+  ?>
+<div class="alert alert-primary" role="alert">
+  <?php echo $sukses ?>
+</div>
+<?php
+}
+?>
+<!-- alert gagal input data -->
+<?php 
+if($gagal) {
+  ?>
+<div class="alert alert-danger" role="alert">
+  <?php echo $gagal ?>
+</div>
+<?php
+}
+
+?>
 
 <form action="" method="POST" class="row g-3">
   <div class="col-auto">
@@ -29,10 +70,18 @@
     </tr>
   </thead>
   <tbody>
-    <?php 
-    $queryread = "SELECT * FROM halaman ORDER BY id ASC";
+    <?php
+    $sqltambahan = "";
+    if($katakunci != ""){
+      $array_katakunci = explode(" ",$katakunci);
+      for($x=0;$x < count($array_katakunci);$x++) {
+        $sqlcari[] = "(judul like '%" . $array_katakunci[$x] . "%' or kutipan like '%" . $array_katakunci[$x] . "%' or isi like '%" . $array_katakunci[$x] . "%')";
+      }
+      $sqltambahan = "WHERE".implode(" or ",$sqlcari);
+    }  
+    $queryread = "SELECT * FROM halaman $sqltambahan ORDER BY id ASC";
     $kirimread = mysqli_query($koneksi,$queryread);
-    $nomor = "";
+    $nomor = "1";
 
     // looping
     while($looping = mysqli_fetch_assoc($kirimread)) {
@@ -42,7 +91,9 @@
       <td><?php echo $looping['judul'] ?></td>
       <td><?php echo $looping['kutipan'] ?></td>
       <td>
-        <span class="badge bg-danger">hapus</span>
+        <a href="halaman.php?op=delete&id=<?php echo $looping['id'] ?>"
+          onclick="return confirm('Yakin ingin menhapus data??')"><span class="badge bg-danger">hapus</span></a>
+
         <span class="badge bg-warning text-dark">edit</span>
       </td>
     </tr>

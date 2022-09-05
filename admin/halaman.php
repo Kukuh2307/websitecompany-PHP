@@ -22,6 +22,9 @@
         $gagal = "data gagal di hapus";
       }
     }
+    if($op =="edit") {
+      
+    }
     ?>
 <h1>Halaman Admin</h1>
 <p>
@@ -100,10 +103,15 @@ if($gagal) {
       <td><?php echo $looping['judul'] ?></td>
       <td><?php echo $looping['kutipan'] ?></td>
       <td>
-        <a href="halaman.php?op=delete&id=<?php echo $looping['id'] ?>"
-          onclick="return confirm('Yakin ingin menhapus data??')"><span class="badge bg-danger">hapus</span></a>
+        <a href="halaman_input.php?id=<?php echo $looping["id"]?>">
+          <span class="badge bg-warning text-dark">edit</span>
+        </a>
 
-        <span class="badge bg-warning text-dark">edit</span>
+        <a href="halaman.php?op=delete&id=<?php echo $looping['id'] ?>"
+          onclick="return confirm('Yakin ingin menhapus data??')">
+          <span class="badge bg-danger">hapus</span>
+        </a>
+
       </td>
     </tr>
     <?php

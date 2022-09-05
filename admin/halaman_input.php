@@ -11,33 +11,58 @@ if(isset($_GET['id'])){
 }else{
   $id = "";
 }
+if($id != ""){
+  $queryedit = "SELECT * FROM halaman WHERE id='$id'";
+  $kirimedit = mysqli_query($koneksi,$queryedit);
+  $tampil = mysqli_fetch_array($kirimedit);
+  $judul = $tampil["judul"];
+  $isi = $tampil["isi"];
+  $kutipan = $tampil["kutipan"];
+  if($isi =="") {
+    $gagal = "silahkan memasukkan isi";
+  }
+}
 
 // mengecek tombol simpan
 // menangkap isi nilai yang ada di form dan di sempan ke dalam variable
 if(isset($_POST['simpan'])){
-  $judul = $_POST['judul'];
-  $isi = $_POST['isi'];
-  $kutipan = $_POST['kutipan'];
-
-// menegecek apakah data terisi semua
-  if($judul == "" && $isi =="" && $kutipan == "") {
-    $gagal = "silahkan memasukkan semua data";
+  // update data
+  if($id != ""){
+    $queryupdate = "update halaman set judul = '$judul',kutipan='$kutipan',isi='$isi',tgl_isi=now() where id='$id'";
   } else {
-    $sukses = "data berhasil di simpan";
+    // insert data
+    $judul = $_POST['judul'];
+    $isi = $_POST['isi'];
+    $kutipan = $_POST['kutipan'];
+    // menegecek apakah data terisi semua
+      if($judul == "" && $kutipan =="" && $isi =="") {
+        $gagal = "silahkan memasukkan semua data";
+      } else {
+        $sukses = "data berhasil di simpan";
+      }
   }
 
   if(empty($gagal)){
     if($id !="") {
+      $judul = $_POST['judul'];
+    $isi = $_POST['isi'];
+    $kutipan = $_POST['kutipan'];
+      // updatedata
       $queryupdate = "update halaman set judul = '$judul',kutipan='$kutipan',isi='$isi',tgl_isi=now() where id = '$id'";
-      $kirimiupdate = mysqli_query($koneksi,$queryupdate);
+      $kirimupdate = mysqli_query($koneksi,$queryupdate);
+      if(isset($kirimupdate)) {
+        $sukses = "data berhasil di update";
+      } else {
+        $gagal ="data gagal di update";
+      }
     } else {
-      $queryinsert = "insert into halaman(judul,kutipan,isi) values ('$judul','$kutipan','$isi')";
+      $queryinsert = "INSERT INTO halaman(judul,kutipan,isi) VALUES ('$judul','$kutipan','$isi')";
       $kiriminsert = mysqli_query($koneksi,$queryinsert);
-    }
-    if($kiriminsert) {
-      $sukses = "data berhasil di inputkan";
-    } else {
-      $gagal = "gagal memasukkan data";
+      if(isset($kiriminsert)) {
+        $sukses = "data berhasil di inputkan";
+      } else {
+        $gagal = "data gagal di inputkan";
+      }
     }
   }
 }

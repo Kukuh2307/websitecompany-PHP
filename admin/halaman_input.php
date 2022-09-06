@@ -28,34 +28,29 @@ if($id != ""){
 if(isset($_POST['simpan'])){
   // update data
   if($id != ""){
-    $queryupdate = "update halaman set judul = '$judul',kutipan='$kutipan',isi='$isi',tgl_isi=now() where id='$id'";
-  } else {
-    // insert data
     $judul = $_POST['judul'];
     $isi = $_POST['isi'];
     $kutipan = $_POST['kutipan'];
-    // menegecek apakah data terisi semua
-      if($judul == "" && $kutipan =="" && $isi =="") {
-        $gagal = "silahkan memasukkan semua data";
-      } else {
-        $sukses = "data berhasil di simpan";
-      }
-  }
-
-  if(empty($gagal)){
-    if($id !="") {
-      $judul = $_POST['judul'];
-    $isi = $_POST['isi'];
-    $kutipan = $_POST['kutipan'];
       // updatedata
-      $queryupdate = "update halaman set judul = '$judul',kutipan='$kutipan',isi='$isi',tgl_isi=now() where id = '$id'";
+      $queryupdate = "UPDATE halaman SET judul = '$judul',kutipan='$kutipan',isi='$isi',tgl_isi=now() WHERE id = '$id'";
       $kirimupdate = mysqli_query($koneksi,$queryupdate);
       if(isset($kirimupdate)) {
         $sukses = "data berhasil di update";
       } else {
         $gagal ="data gagal di update";
       }
-    } else {
+  } else {
+    // insert data
+    $judul = $_POST['judul'];
+    $isi = $_POST['isi'];
+    $kutipan = $_POST['kutipan'];
+    // menegecek apakah data terisi semua
+      if($judul == "") {
+        $gagal = "silahkan memasukkan judul";
+        if($kutipan == ""){
+          $gagal = "silahkan memasukkan dan kutipan";
+        }
+      } else {
       $queryinsert = "INSERT INTO halaman(judul,kutipan,isi) VALUES ('$judul','$kutipan','$isi')";
       $kiriminsert = mysqli_query($koneksi,$queryinsert);
       if(isset($kiriminsert)) {
@@ -63,8 +58,33 @@ if(isset($_POST['simpan'])){
       } else {
         $gagal = "data gagal di inputkan";
       }
-    }
+      }
   }
+
+  // if(empty($gagal)){
+  //   if($id !="") {
+  //   // $judul = $_POST['judul'];
+  //   // $isi = $_POST['isi'];
+  //   // $kutipan = $_POST['kutipan'];
+  //   //   // updatedata
+  //   //   $queryupdate = "UPDATE halaman SET judul = '$judul',kutipan='$kutipan',isi='$isi',tgl_isi=now() WHERE id = '$id'";
+  //   //   $kirimupdate = mysqli_query($koneksi,$queryupdate);
+  //   //   if(isset($kirimupdate)) {
+  //   //     $sukses = "data berhasil di update";
+  //   //   } else {
+  //   //     $gagal ="data gagal di update";
+  //   //   }
+  //   } else {
+  //     // menambahkan data baru
+  //     // $queryinsert = "INSERT INTO halaman(judul,kutipan,isi) VALUES ('$judul','$kutipan','$isi')";
+  //     // $kiriminsert = mysqli_query($koneksi,$queryinsert);
+  //     // if(isset($kiriminsert)) {
+  //     //   $sukses = "data berhasil di inputkan";
+  //     // } else {
+  //     //   $gagal = "data gagal di inputkan";
+  //     // }
+  //   }
+  // }
 }
 ?>
 <h1>Halaman Admin Input Data</h1>

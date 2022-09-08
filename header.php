@@ -1,7 +1,6 @@
 <?php 
-require 'koneksi/connectdatabase.php';
-require 'koneksi/function.php';
-
+include_once("koneksi/connectdatabase.php");
+include_once("koneksi/function.php");
 
 ?>
 
@@ -18,14 +17,14 @@ require 'koneksi/function.php';
 <body>
   <nav>
     <div class="wrapper">
-      <div class="logo"><a href=''>Online Courses</a></div>
+      <div class="logo"><a href='<?php echo url_dasar()  ?>'>Online Courses</a></div>
       <div class="menu">
         <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#courses">Courses</a></li>
-          <li><a href="#tutors">Tutors</a></li>
-          <li><a href="#partners">Partners</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="<?php echo url_dasar()?>#home">Home</a></li>
+          <li><a href="<?php echo url_dasar()?>#courses">Courses</a></li>
+          <li><a href="<?php echo url_dasar()?>#tutors">Tutors</a></li>
+          <li><a href="<?php echo url_dasar()?>#partners">Partners</a></li>
+          <li><a href="<?php echo url_dasar()?>#contact">Contact</a></li>
           <li><a href="" class="tbl-biru">Sign Up</a></li>
         </ul>
       </div>

@@ -1,12 +1,12 @@
-<?php require 'header.php' ?>
+<?php include_once("header.php") ?>
 <!-- untuk home -->
 <section id="home">
   <img src="<?php  echo ambil_gambar("51") ?>" />
   <div class="kolom">
     <p class="deskripsi"><?php echo ambil_kutipan("51") ?></p>
     <h2><?php echo ambil_judul('51') ?></h2>
-    <p><?php echo ambil_isi('51') ?></p>
-    <p><a href="<?php echo link_halaman('51') ?>" class="tbl-pink">Pelajari Lebih Lanjut</a></p>
+    <p><?php echo max_kata(ambil_isi('51'),15)  ?></p>
+    <p><a href="<?php echo buat_link_halaman('51') ?>" class="tbl-pink">Pelajari Lebih Lanjut</a></p>
   </div>
 </section>
 
@@ -15,8 +15,8 @@
   <div class="kolom">
     <p class="deskripsi"><?php echo ambil_kutipan('52') ?></p>
     <h2><?php echo ambil_judul('52') ?></h2>
-    <p><?php echo ambil_isi('52') ?></p>
-    <p><a href="<?php echo link_halaman('52') ?>" class="tbl-biru">Pelajari Lebih Lanjut</a></p>
+    <p><?php echo max_kata(ambil_isi('52'),30) ?></p>
+    <p><a href="<?php echo buat_link_halaman('52') ?>" class="tbl-biru">Pelajari Lebih Lanjut</a></p>
   </div>
   <img
     src="https://img.freepik.com/free-vector/online-learning-isometric-concept_1284-17947.jpg?size=626&ext=jpg&ga=GA1.2.1769275626.1605867161" />
@@ -87,4 +87,4 @@
   </div>
 </section>
 
-<?php require 'footer.php' ?>
+<?php include_once("footer.php") ?>

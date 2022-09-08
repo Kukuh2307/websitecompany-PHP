@@ -1,9 +1,8 @@
 <?php
-function url_dasar()
-{
-    // alamat url website dan direktori website
-    $url_dasar =  "http://" . $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']);
-
+function url_dasar(){
+    //$_SERVER['SERVER_NAME'] : alamat website, misalkan websitemu.com
+    // $_SERVER['SCRIPT_NAME'] : directory website, websitemu.com/blog/ $_SERVER['SCRIPT_NAME'] : blog
+    $url_dasar  = "http://".$_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME']);
     return $url_dasar;
 }
 
@@ -57,24 +56,21 @@ function ambil_isi($id_tulisan)
     return $isi;
 }
 
-function link_halaman($id)
-{
-    global $koneksi;
-    // ambil judul
-    $queryselect = "SELECT * FROM halaman WHERE id='$id'";
-    $kirimselect = mysqli_query($koneksi, $queryselect);
-    $dataisi = mysqli_fetch_assoc($kirimselect);
-    $judul = $dataisi['judul'];
-
-    return url_dasar()."/halaman.php/$id/$judul";
+function bersihkan_judul($judul){
+    $judul_baru     = strtolower($judul);
+    $judul_baru     = preg_replace("/[^a-zA-Z0-9\s]/","",$judul_baru);
+    $judul_baru     = str_replace("    ","-",$judul_baru);
+    return $judul_baru;
 }
 
-function bersihkan_judul($judul)
-{
-    $judul_baru = strtolower($judul);
-    $judul_baru = preg_replace("/[^a-zA-Z0-9\s]/", "", $judul_baru);
-    $judul_baru = str_replace(" ", "-", $judul_baru);
-    return $judul_baru;
+function buat_link_halaman($id){
+    global $koneksi;
+    $sql1    = "select * from halaman where id = '$id'";
+    $q1     = mysqli_query($koneksi,$sql1);
+    $r1     = mysqli_fetch_array($q1);
+    $judul  = bersihkan_judul($r1['judul']);
+    // http://localhost/website-company-profile/halaman.php/8/judul
+    return url_dasar()."/halaman.php/$id/$judul";
 }
 
 function getid()
@@ -86,4 +82,17 @@ function getid()
     }
     return $id;
 }
-$ambil_id = getid();
+
+function set_isi($isi){
+    $isi = str_replace("../gambar/",url_dasar()."/gambar/",$isi);
+    return $isi;
+}
+
+function max_kata($isi,$maxkata) {
+    $array_isi = explode(" ",$isi);
+    $array_isi = array_slice($array_isi,0,$maxkata);
+    $isi = implode(" ",$array_isi);
+    return $isi;
+}
+
+?>

@@ -45,11 +45,8 @@ if(isset($_POST['simpan'])){
     $isi = $_POST['isi'];
     $kutipan = $_POST['kutipan'];
     // menegecek apakah data terisi semua
-      if($judul == "") {
-        $gagal = "silahkan memasukkan judul";
-        if($kutipan == ""){
-          $gagal = "silahkan memasukkan dan kutipan";
-        }
+      if($judul == "  " || $kutipan == " " || $isi == "  ") {
+        $gagal = "silahkan memasukkan semua data";
       } else {
       $queryinsert = "INSERT INTO halaman(judul,kutipan,isi) VALUES ('$judul','$kutipan','$isi')";
       $kiriminsert = mysqli_query($koneksi,$queryinsert);

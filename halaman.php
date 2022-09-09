@@ -1,7 +1,7 @@
 <?php 
 include_once("koneksi/connectdatabase.php");
 include_once("koneksi/function.php");
-$id = getid();
+
 
 $queryselect = "SELECT * FROM halaman WHERE id='$id'";
 $kirimselect = mysqli_query($koneksi,$queryselect);

@@ -25,12 +25,44 @@ if($id != ""){
 // mengecek tombol simpan
 // menangkap isi nilai yang ada di form dan di sempan ke dalam variable
 if(isset($_POST['simpan'])){
+
+  // mengecek foto dan format foto
+  if($_FILES['foto']['name']) {
+    $foto_name = $_FILES['foto']['name'];
+    $foto_file = $_FILES['foto']['tmp_name'];
+    $ekstensifile = array("jpg","jpeg","png");
+
+     // memastikan format foto
+    $detail_file = pathinfo($foto_name);
+    $getekstension = $detail_file['extension'];
+
+    // error
+    // Array ( [dirname] => . [basename] => tutors.jpg [extension] => jpg [filename] => tutors )
+    // print_r($_FILES);
+
+    if(!in_array($getekstension,$ekstensifile)){
+      $gagal = "Ekstensi yang di perbolehkan adalah jpg,jpeg dan png";
+    }
+
+    if($foto_name){
+      // ambil lokasi file
+      $direktori = "../gambar";
+      // atur format nama
+      $foto_name = "tutors_".time()."_".$foto_name;
+
+      // pindah file
+      // format file adalah temporary file,direktori
+      move_uploaded_file($foto_file,$direktori."/".$foto_name);
+    }
+  }
+  
+
   // update data
   if($id != ""){
     $nama = $_POST['nama'];
     $isi = $_POST['isi'];
       // updatedata
-      $queryupdate = "UPDATE tutors SET nama = '$nama',isi='$isi',tgl_isi=now() WHERE id = '$id'";
+      $queryupdate = "UPDATE tutors SET nama = '$nama', foto = '$foto_name', isi='$isi',tgl_isi=now() WHERE id = '$id'";
       $kirimupdate = mysqli_query($koneksi,$queryupdate);
       if(isset($kirimupdate)) {
         $sukses = "data berhasil di update";
@@ -45,7 +77,7 @@ if(isset($_POST['simpan'])){
       if($nama == "  "  || $isi == "  ") {
         $gagal = "silahkan memasukkan semua data";
       } else {
-      $queryinsert = "INSERT INTO tutors(nama,isi) VALUES ('$nama','$isi')";
+      $queryinsert = "INSERT INTO tutors(nama,foto,isi) VALUES ('$nama','$foto_name','$isi')";
       $kiriminsert = mysqli_query($koneksi,$queryinsert);
       if(isset($kiriminsert)) {
         $sukses = "data berhasil di inputkan";
@@ -53,14 +85,6 @@ if(isset($_POST['simpan'])){
         $gagal = "data gagal di inputkan";
       }
       }
-  }
-  // mengecek foto dan format foto
-  if($_FILES['foto']['name']) {
-    $foto_name = $_FILES['foto']['name'];
-    $foto_file = $_FILES['foto']['tmp_name'];
-
-    $detail_file = pathinfo($foto_name);
-    print_r($detail_file);
   }
 }
 ?>

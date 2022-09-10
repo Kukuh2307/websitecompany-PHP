@@ -95,4 +95,18 @@ function max_kata($isi,$maxkata) {
     return $isi;
 }
 
+function foto_tutors($id){
+    global $koneksi;
+    $queryselect = "SELECT * FROM tutors WHERE id='$id'";
+    $kirimselect = mysqli_query($koneksi,$queryselect);
+    $tampildata = mysqli_fetch_assoc($kirimselect);
+    $foto = $tampildata['foto'];
+
+    if($foto){
+        return $foto;
+    } else {
+        return 'tutors_default_picture.png';
+    }
+}
+
 ?>

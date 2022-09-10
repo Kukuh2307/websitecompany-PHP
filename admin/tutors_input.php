@@ -2,6 +2,7 @@
 <?php 
 $nama = "";
 $foto = "";
+$foto_name = "";
 $isi = "";
 $gagal = "";
 $sukses ="";
@@ -16,6 +17,7 @@ if($id != ""){
   $kirimedit = mysqli_query($koneksi,$queryedit);
   $tampil = mysqli_fetch_array($kirimedit);
   $nama = $tampil["nama"];
+  $foto = $tampil['foto'];
   $isi = $tampil["isi"];
   if($isi =="") {
     $gagal = "silahkan memasukkan isi";
@@ -47,12 +49,18 @@ if(isset($_POST['simpan'])){
     if($foto_name){
       // ambil lokasi file
       $direktori = "../gambar";
+
+      // delete data lama
+      @unlink($direktori."/$foto");
       // atur format nama
       $foto_name = "tutors_".time()."_".$foto_name;
 
       // pindah file
       // format file adalah temporary file,direktori
       move_uploaded_file($foto_file,$direktori."/".$foto_name);
+      $foto = $foto_name;
+    } else {
+      $foto_name = $foto;
     }
   }
   
@@ -61,6 +69,7 @@ if(isset($_POST['simpan'])){
   if($id != ""){
     $nama = $_POST['nama'];
     $isi = $_POST['isi'];
+    $foto_name = $foto;
       // updatedata
       $queryupdate = "UPDATE tutors SET nama = '$nama', foto = '$foto_name', isi='$isi',tgl_isi=now() WHERE id = '$id'";
       $kirimupdate = mysqli_query($koneksi,$queryupdate);
@@ -72,6 +81,7 @@ if(isset($_POST['simpan'])){
   } else {
     // insert data
     $nama = $_POST['nama'];
+    $foto = $_POST['foto'];
     $isi = $_POST['isi'];
     // menegecek apakah data terisi semua
       if($nama == "  "  || $isi == "  ") {
@@ -126,6 +136,11 @@ if($gagal) {
   <div class="mb-3 row">
     <label for="foto" class="col-sm-2 col-form-label">foto</label>
     <div class="col-sm-10">
+      <?php 
+      if($foto){
+        echo "<img src='../gambar/$foto' style='max-height:100px;max-width:100px'/>";
+      }
+      ?>
       <input type="file" class="form-control" id="foto" name="foto">
     </div>
   </div>

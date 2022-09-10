@@ -13,6 +13,12 @@
     if($op == "delete") {
       // menangkap id dari op dan di kirimkan ke database
       $id = $_GET["id"];
+      // membuat query delete foto
+      $querydelete = "SELECT foto FROM tutors WHERE id='$id'";
+      $kirimdelete = mysqli_query($koneksi,$querydelete);
+      $gambar = mysqli_fetch_assoc($kirimdelete);
+      @unlink("../gambar".$gambar['foto']);
+      
       $querydelete = "DELETE FROM tutors WHERE id ='$id'";
       $kirimdelete = mysqli_query($koneksi,$querydelete);
       // apabila data berhasil di hapus maka tampilkan pesan
@@ -21,9 +27,6 @@
       } else {
         $gagal = "data gagal di hapus";
       }
-    }
-    if($op =="edit") {
-      
     }
     ?>
 <h1>Halaman Admin Tutors</h1>

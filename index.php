@@ -32,24 +32,19 @@
     </div>
 
     <div class="tutor-list">
+      <?php 
+      $queryselect = "SELECT * FROM tutors ORDER BY id ASC";
+      $kirimselect = mysqli_query($koneksi,$queryselect);
+      while($looping = mysqli_fetch_assoc($kirimselect)){
+      ?>
       <div class="kartu-tutor">
-        <img src="https://dfu1k3y1rami2.cloudfront.net/wp-content/uploads/2014/07/26195109/2020_cb.jpg" />
-        <p>Jason Lee Scott</p>
+        <img src="<?php echo url_dasar()."/gambar/". foto_tutors($looping['id']) ?>" />
+        <p><?php echo $looping['nama'] ?></p>
       </div>
-      <div class="kartu-tutor">
-        <img
-          src="https://images.ctfassets.net/1wryd5vd9xez/4DxzhQY7WFsbtTkoYntq23/a4a04701649e92a929010a6a860b66bf/https___cdn-images-1.medium.com_max_2000_1_Y6l_FDhxOI1AhjL56dHh8g.jpeg" />
-        <p>John Doe</p>
-      </div>
-      <div class="kartu-tutor">
-        <img
-          src="https://images.fastcompany.net/image/upload/w_596,c_limit,q_auto:best,f_auto/fc/3021752-inline-i-1-why-square-designed-its-new-offices-to-work-like-a-city.jpg" />
-        <p>Michael Dell</p>
-      </div>
-      <div class="kartu-tutor">
-        <img src="https://blogs-images.forbes.com/jackkelly/files/2019/06/Jack-Kelly_avatar_1559658819-400x400.jpg" />
-        <p>Bruce Wills</p>
-      </div>
+      <?php
+
+      }
+      ?>
     </div>
   </div>
 </section>

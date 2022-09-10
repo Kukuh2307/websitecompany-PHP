@@ -108,7 +108,7 @@ if($gagal) {
         </a>
 
         <a href="halaman.php?op=delete&id=<?php echo $looping['id'] ?>"
-          onclick="return confirm('Yakin ingin menhapus data??')">
+          onclick="return confirm('Yakin ingin menghapus data??')">
           <span class="badge bg-danger">hapus</span>
         </a>
 

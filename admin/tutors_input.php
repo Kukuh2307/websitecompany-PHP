@@ -81,7 +81,6 @@ if(isset($_POST['simpan'])){
   } else {
     // insert data
     $nama = $_POST['nama'];
-    $foto = $_POST['foto'];
     $isi = $_POST['isi'];
     // menegecek apakah data terisi semua
       if($nama == "  "  || $isi == "  ") {

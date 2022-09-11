@@ -1,4 +1,4 @@
-<?php require 'inc_header.php' ?>
+<?php include_once("inc_header.php") ?>
 <?php 
     $katakunci = (isset($_POST["katakunci"]))?$_POST["katakunci"]:"";
     // untuk menhapus data
@@ -14,12 +14,12 @@
       // menangkap id dari op dan di kirimkan ke database
       $id = $_GET["id"];
       // membuat query delete foto
-      $querydelete = "SELECT foto FROM tutors WHERE id='$id'";
+      $querydelete = "SELECT foto FROM partners WHERE id='$id'";
       $kirimdelete = mysqli_query($koneksi,$querydelete);
       $gambar = mysqli_fetch_assoc($kirimdelete);
       @unlink("../gambar".$gambar['foto']);
       
-      $querydelete = "DELETE FROM tutors WHERE id ='$id'";
+      $querydelete = "DELETE FROM partners WHERE id ='$id'";
       $kirimdelete = mysqli_query($koneksi,$querydelete);
       // apabila data berhasil di hapus maka tampilkan pesan
       if($kirimdelete){
@@ -29,10 +29,10 @@
       }
     }
     ?>
-<h1>Halaman Admin Tutors</h1>
+<h1>Halaman Admin Partners</h1>
 <p>
-  <a href="tutors_input.php">
-    <input type="button" class="btn btn-primary" value="Buat tutors baru">
+  <a href="partners_input.php">
+    <input type="button" class="btn btn-primary" value="Buat partners baru">
   </a>
 </p>
 <?php 
@@ -86,7 +86,7 @@ if($gagal) {
       }
       $sqltambahan = "WHERE".implode(" or ",$sqlcari);
     }  
-    $queryread = "SELECT * FROM tutors $sqltambahan";
+    $queryread = "SELECT * FROM partners $sqltambahan";
 
     // membuat pagination
     $page = isset($_GET["page"])?(int)$_GET["page"]:1;
@@ -103,15 +103,15 @@ if($gagal) {
     ?>
     <tr>
       <td><?php echo $nomor++ ?></td>
-      <td><img src="../gambar/<?php echo foto_tutors($looping['id']) ?>" style="max-height: 100px;max-width: 100px;"
+      <td><img src="../gambar/<?php echo foto_partners($looping['id']) ?>" style="max-height: 100px;max-width: 100px;"
           alt=""></td>
       <td><?php echo $looping['nama'] ?></td>
       <td>
-        <a href="tutors_input.php?id=<?php echo $looping["id"]?>">
+        <a href="partners_input.php?id=<?php echo $looping["id"]?>">
           <span class="badge bg-warning text-dark">edit</span>
         </a>
 
-        <a href="tutors.php?op=delete&id=<?php echo $looping['id'] ?>"
+        <a href="partners.php?op=delete&id=<?php echo $looping['id'] ?>"
           onclick="return confirm('Yakin ingin menhapus data??')">
           <span class="badge bg-danger">hapus</span>
         </a>
@@ -133,7 +133,7 @@ if($gagal) {
             ?>
     <li class="page-item">
       <a class="page-link"
-        href="tutors.php?katakunci=<?php echo $katakunci?>&cari=<?php echo $cari?>&page=<?php echo $i ?>"><?php echo $i ?></a>
+        href="partners.php?katakunci=<?php echo $katakunci?>&cari=<?php echo $cari?>&page=<?php echo $i ?>"><?php echo $i ?></a>
     </li>
     <?php
         }

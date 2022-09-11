@@ -63,25 +63,22 @@
     </div>
 
     <div class="partner-list">
+      <?php 
+      $queryselect = "SELECT * FROM partners ORDER BY id ASC";
+      $kirimselectpartners = mysqli_query($koneksi,$queryselect);
+      while($looping = mysqli_fetch_assoc($kirimselectpartners)){
+        ?>
       <div class="kartu-partner">
-        <img src="https://www.designevo.com/res/templates/thumb_small/black-wheat-and-mortarboard.png" />
+        <a href="<?php echo buat_link_partners($looping['id']) ?>">
+          <img src="<?php echo url_dasar()."/gambar/". foto_partners($looping['id']) ?>" />
+        </a>
       </div>
-      <div class="kartu-partner">
-        <img
-          src="https://image.freepik.com/free-vector/campus-collage-university-education-logo-design-template_7492-63.jpg" />
-      </div>
-      <div class="kartu-partner">
-        <img
-          src="https://image.freepik.com/free-vector/campus-collage-university-education-logo-design-template_7492-62.jpg" />
-      </div>
-      <div class="kartu-partner">
-        <img src="https://www.designevo.com/res/templates/thumb_small/encircled-branches-and-book.png" />
-      </div>
-      <div class="kartu-partner">
-        <img
-          src="https://image.freepik.com/free-vector/campus-collage-university-education-logo-design-template_7492-64.jpg" />
-      </div>
+      <?php
+      }
+      ?>
     </div>
+
+
   </div>
 </section>
 

@@ -118,4 +118,28 @@ function buat_link_tutors($id){
     $nama = str_replace(" ","",$nama);
     return url_dasar()."/detail_tutors.php/$id/$nama";
 }
+
+function foto_partners($id){
+    global $koneksi;
+    $queryselect = "SELECT * FROM partners WHERE id='$id'";
+    $kirimselect = mysqli_query($koneksi,$queryselect);
+    $tampildata = mysqli_fetch_assoc($kirimselect);
+    $foto = $tampildata['foto'];
+
+    if($foto){
+        return $foto;
+    } else {
+        return 'tutors_default_picture.png';
+    }
+}
+
+function buat_link_partners($id){
+    global $koneksi;
+    $sql1    = "SELECT * FROM partners where id = '$id'";
+    $q1     = mysqli_query($koneksi,$sql1);
+    $r1     = mysqli_fetch_array($q1);
+    $nama  = bersihkan_judul($r1['nama']);
+    $nama = str_replace(" ","",$nama);
+    return url_dasar()."/detail_partners.php/$id/$nama";
+}
 ?>

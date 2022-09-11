@@ -185,6 +185,7 @@ p {
   display: flex;
   flex-wrap: wrap;
   margin: auto;
+  color: black;
 }
 
 .footer-section {

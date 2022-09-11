@@ -38,8 +38,11 @@
       while($looping = mysqli_fetch_assoc($kirimselect)){
       ?>
       <div class="kartu-tutor">
-        <img src="<?php echo url_dasar()."/gambar/". foto_tutors($looping['id']) ?>" />
-        <p><?php echo $looping['nama'] ?></p>
+        <a href="<?php echo buat_link_tutors($looping['id'])?>">
+          <img src="<?php echo url_dasar()."/gambar/". foto_tutors($looping['id']) ?>" />
+          <p><?php echo $looping['nama'] ?></p>
+        </a>
+
       </div>
       <?php
 

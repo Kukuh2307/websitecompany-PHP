@@ -13,12 +13,17 @@
       </div>
       <div class="footer-section">
         <h3>Contact</h3>
-        <p>Jl. Laksda Adisucipto Sleman Yogyakarta</p>
-        <p>Kode Pos: 57365</p>
+        <p>Jl. Jembatan Timbang Pojok Ngantru,Tulungagung Jawa Timur</p>
+        <p>Kode Pos: 66252</p>
       </div>
       <div class="footer-section">
-        <h3>Social</h3>
-        <p><b>YouTube: </b>Programming di RumahRafif</p>
+        <h3>Navigasi</h3>
+        <div class="link">
+          <a href="<?php echo url_dasar()?>#home">Home</a>
+          <a href="<?php echo url_dasar()?>#courses">Courses</a>
+          <a href="<?php echo url_dasar()?>#tutors">Tutors</a>
+          <a href="<?php echo url_dasar()?>#partners">Partners</a>
+        </div>
       </div>
     </div>
   </div>
@@ -26,7 +31,7 @@
 
 <div id="copyright">
   <div class="wrapper">
-    &copy; 2020. <b>RumahRafif.</b> All Rights Reserved.
+    &copy; 2022. <b>Kisawa16</b> All Rights Reserved.
   </div>
 </div>
 

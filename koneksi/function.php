@@ -59,7 +59,7 @@ function ambil_isi($id_tulisan)
 function bersihkan_judul($judul){
     $judul_baru     = strtolower($judul);
     $judul_baru     = preg_replace("/[^a-zA-Z0-9\s]/","",$judul_baru);
-    $judul_baru     = str_replace("    ","-",$judul_baru);
+    $judul_baru     = str_replace("     ","-",$judul_baru);
     return $judul_baru;
 }
 
@@ -109,4 +109,13 @@ function foto_tutors($id){
     }
 }
 
+function buat_link_tutors($id){
+    global $koneksi;
+    $sql1    = "select * from tutors where id = '$id'";
+    $q1     = mysqli_query($koneksi,$sql1);
+    $r1     = mysqli_fetch_array($q1);
+    $nama  = bersihkan_judul($r1['nama']);
+    $nama = str_replace(" ","",$nama);
+    return url_dasar()."/detail_tutors.php/$id/$nama";
+}
 ?>

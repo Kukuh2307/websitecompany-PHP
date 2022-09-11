@@ -1,4 +1,5 @@
 <?php 
+// detail halaman home ketika di klik
 include_once("koneksi/connectdatabase.php");
 include_once("koneksi/function.php");
 

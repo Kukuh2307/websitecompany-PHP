@@ -24,7 +24,7 @@ include_once("koneksi/function.php");
           <li><a href="<?php echo url_dasar()?>#courses">Courses</a></li>
           <li><a href="<?php echo url_dasar()?>#tutors">Tutors</a></li>
           <li><a href="<?php echo url_dasar()?>#partners">Partners</a></li>
-          <li><a href="<?php echo url_dasar()?>#contact">Contact</a></li>
+          <!-- <li><a href="<?php echo url_dasar()?>#contact">Contact</a></li> -->
           <li><a href="" class="tbl-biru">Sign Up</a></li>
         </ul>
       </div>

@@ -1,20 +1,24 @@
 </div>
+<?php 
+include_once("koneksi/connectdatabase.php");
+include_once("koneksi/function.php");
+?>
 
 <div id="contact">
   <div class="wrapper">
     <div class="footer">
       <div class="footer-section">
-        <h3>Online Courses</h3>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint, culpa!</p>
+        <h3><?php echo footer('1','judul') ?></h3>
+        <p><?php echo footer('1','isi') ?></p>
       </div>
       <div class="footer-section">
-        <h3>About</h3>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint, culpa!</p>
+        <h3><?php echo footer('3','judul') ?></h3>
+        <p><?php echo footer('3','isi') ?> </p>
+        <p><?php echo footer('4','isi') ?> </p>
       </div>
       <div class="footer-section">
-        <h3>Contact</h3>
-        <p>Jl. Jembatan Timbang Pojok Ngantru,Tulungagung Jawa Timur</p>
-        <p>Kode Pos: 66252</p>
+        <h3><?php echo footer('2','judul') ?></h3>
+        <p><?php echo footer('2','isi') ?> </p>
       </div>
       <div class="footer-section">
         <h3>Navigasi</h3>

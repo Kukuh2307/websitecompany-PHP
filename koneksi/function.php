@@ -142,4 +142,13 @@ function buat_link_partners($id){
     $nama = str_replace(" ","",$nama);
     return url_dasar()."/detail_partners.php/$id/$nama";
 }
+
+function footer($id,$table) {
+    global $koneksi;
+    $queryselect = "SELECT $table FROM footer WHERE id='$id'";
+    $kirimselect = mysqli_query($koneksi,$queryselect);
+    $tampildata = mysqli_fetch_assoc($kirimselect);
+    $select = $tampildata[$table];
+    return $select;
+}
 ?>

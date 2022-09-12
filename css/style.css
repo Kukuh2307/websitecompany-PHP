@@ -183,7 +183,8 @@ p {
   width: 100%;
   position: relative;
   display: flex;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  flex-wrap: nowrap;
   margin: auto;
   color: black;
 }

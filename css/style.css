@@ -282,3 +282,55 @@ h3 {
   margin: 0.5rem 0;
   color: black;
 }
+
+/* form pendaftaran */
+table {
+  width: 600px;
+}
+@media screen and (max-width: 700px) {
+  table {
+    width: 90%;
+  }
+}
+table td {
+  padding: 5px;
+}
+td.label {
+  width: 40%;
+}
+.input {
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  background-color: #dfdfdf;
+  padding: 0.5rem;
+  width: 100%;
+}
+.tombol {
+  border-radius: 0.5rem;
+  border: none;
+  background-color: #3f72af;
+  margin-top: 1rem;
+  padding: 15px 20px;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: bold;
+}
+.tombol:hover {
+  background-color: #fc5185;
+  text-decoration: none;
+}
+.gagal {
+  padding: 20px;
+  background-color: #f44336;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+.sukses {
+  padding: 20px;
+  background-color: #2196f3;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+.gagal ul {
+  margin-left: 10px;
+}

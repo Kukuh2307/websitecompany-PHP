@@ -47,7 +47,9 @@ if(isset($_POST['simpan'])){
     // $isi_email = "akun anda dengan email <b>$email<b> telah siap untuk di gunakan.<br/>>";
     // $isi_email .="silahkan melakukan aktifasi email pada link di bawah ini<br/>";
     $isi_email = url_dasar()."/verifikasi.php?email=$email&kode=$status";
-    kirim_email($email,$nama_lengkap,$judul_email,$isi_email);
+
+    // kirim_email($email,$nama_lengkap,$judul_email,$isi_email);
+    
     $sukses = "berhasil mendaftarkan account";
 
     // kirim data ke database

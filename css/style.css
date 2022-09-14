@@ -331,6 +331,12 @@ td.label {
   color: #ffffff;
   margin-bottom: 15px;
 }
+.sukses a {
+  color: #ffffff;
+}
+.sukses a:hover {
+  color: #fc5185;
+}
 .gagal ul {
   margin-left: 10px;
 }

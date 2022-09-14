@@ -18,7 +18,7 @@ if(isset($_POST['simpan'])){
   }
   // cek email tidak sama dengan yang ada
   if($email != ''){
-    $queryselect = "SELECT * FROM email WHERE email=$email";
+    $queryselect = "SELECT email FROM members WHERE email='$email'";
     $kirimselect = mysqli_query($koneksi,$queryselect);
     $cekemail = mysqli_num_rows($kirimselect);
     // menampilkan error
@@ -26,7 +26,7 @@ if(isset($_POST['simpan'])){
       $gagal .="<li>email sudah terdaftar</li>";
     }
     // vallidasi email apabila tidak valid
-    if(filter_var($email,FILTER_VALIDATE_EMAIL)){
+    if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
       $gagal .= "<li>email yang dimasukkan tidak valid</li>";
     }
   }
@@ -40,8 +40,22 @@ if(isset($_POST['simpan'])){
     $gagal .= "<li>panjang karakter minimal 8 huruf</li>";
   }
 
+  // apabila tidak terjadi kesalahan maka akan mengirimkan email untuk aktifasi account
   if(empty($gagal)){
+    $status = md5(rand(0,1000));
+    $judul_email = "Halaman konfirmasi pendaftaran";
+    // $isi_email = "akun anda dengan email <b>$email<b> telah siap untuk di gunakan.<br/>>";
+    // $isi_email .="silahkan melakukan aktifasi email pada link di bawah ini<br/>";
+    $isi_email = url_dasar()."/verifikasi.php?email=$email&kode=$status";
+    kirim_email($email,$nama_lengkap,$judul_email,$isi_email);
     $sukses = "berhasil mendaftarkan account";
+
+    // kirim data ke database
+    $queryinsert = "INSERT INTO members(email,nama_lengkap,password,status) values('$email','$nama_lengkap',md5('$password'),'$status')";
+    $kiriminsert = mysqli_query($koneksi,$queryinsert);
+    if($kiriminsert){
+      $sukses = "Proses berhasil,silahkan melakukan verifikasi pada link di bawah ini";
+    } 
   }
 }
 ?>
@@ -56,6 +70,8 @@ if($gagal){
 if($sukses) {
   ?>
 <div class="sukses"><?php echo $sukses ?></div>
+<div class="sukses"><a href="<?php echo $isi_email ?>"> >> Klik di sini << </a>
+</div>
 <?php
 }
 ?>

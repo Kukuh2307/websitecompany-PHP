@@ -19,9 +19,10 @@ if(!isset($_GET['email']) or !isset($_GET['kode'])) {
   // apabila status di database sama dengan kode yang di dapat dari url
   if($tampildata['status'] == $kode) {
     // maka lakukan update data
-    $queryupdate = "UPDATE members set status='1' where email='$email'";
+    $queryupdate = "UPDATE members set status = '1' where email = '$email'";
     $kirimselect;
     $sukses = "Akun anda telah berhasil di buat,silahkan login untuk masuk";
+    echo $email,$kode;
   } else {
     $gagal = "kode tidak terverifikasi,akun gagal untuk di buat";
   }
@@ -43,4 +44,4 @@ if($sukses){
 } 
 ?>
 
-<?php require 'footer.php' ?>
+<?php require 'footer.php' ?>~

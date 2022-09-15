@@ -3,17 +3,18 @@
 <h3>Pendaftaran</h3>
 <?php 
 $email ="";
-$nama_lengkap = "";
+$nama = "";
+$pswd = "";
 $sukses = "";
 $gagal = "";
 
 if(isset($_POST['simpan'])){
   $email = $_POST['email'];
-  $nama_lengkap = $_POST['nama_lengkap'];
-  $password = $_POST['password'];
+  $nama = $_POST['username'];
+  $pswd = $_POST['pswd'];
   $konfirmasipass = $_POST['konfirmasi_password'];
   // cek data
-  if($email =="" or $nama_lengkap = "" or $password =="" or $konfirmasipass == "") {
+  if($email =="" or $nama == "" or $pswd =="" or $konfirmasipass == "") {
     $gagal.= "<li>silahkan memasukkan semua data</li>";
   }
   // cek email tidak sama dengan yang ada
@@ -31,13 +32,16 @@ if(isset($_POST['simpan'])){
     }
   }
 
-  // cek password dengan konfirmasi password
-  if($password != $konfirmasipass){
+  // cek pswd dengan konfirmasi pswd
+  if($pswd != $konfirmasipass){
     $gagal .= "<li>password tidak sesuai</li>";
   }
-  // syarat minimal huruf dalam password
-  if(strlen($password) < 8) {
+  // syarat minimal huruf dalam pswd
+  if(strlen($pswd) < 8) {
     $gagal .= "<li>panjang karakter minimal 8 huruf</li>";
+  }
+  if($nama == "") {
+    $gagal = "Silahkan memasukkan nama lengkap anda";
   }
 
   // apabila tidak terjadi kesalahan maka akan mengirimkan email untuk aktifasi account
@@ -53,11 +57,13 @@ if(isset($_POST['simpan'])){
     $sukses = "berhasil mendaftarkan account";
 
     // kirim data ke database
-    $queryinsert = "INSERT INTO members(email,nama_lengkap,password,status) values('$email','$nama_lengkap',md5('$password'),'$status')";
+    $queryinsert = "insert into members(email,nama_lengkap,password,status) values ('$email','$nama',md5('$pswd'),'$status')";
     $kiriminsert = mysqli_query($koneksi,$queryinsert);
     if($kiriminsert){
       $sukses = "Proses berhasil,silahkan melakukan verifikasi pada link di bawah ini";
-    } 
+    } else{
+      $gagal = "Gagal melakukan pendaftaran account";
+    }
   }
 }
 ?>
@@ -65,6 +71,7 @@ if(isset($_POST['simpan'])){
 <?php 
 if($gagal){
   ?>
+<?php echo var_dump($email,$nama) ?>
 <div class="gagal"><?php echo $gagal ?></div>
 <?php
 } 
@@ -87,16 +94,16 @@ if($sukses) {
     </tr>
 
     <tr>
-      <td class="label">nama Lengkap</td>
+      <td class="label">Nama Lengkap</td>
       <td>
-        <input type="text" name="nama_lengkap" class="input" value="<?php echo $nama_lengkap ?>">
+        <input type="text" name="username" class="input" value="<?php echo $nama ?>">
       </td>
     </tr>
 
     <tr>
       <td class="label">Password</td>
       <td>
-        <input type="password" name="password" class="input">
+        <input type="password" name="pswd" class="input">
       </td>
     </tr>
 

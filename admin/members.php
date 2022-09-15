@@ -10,19 +10,6 @@
     }
     $sukses = "";
     $gagal = "";
-    if($op == "delete") {
-      // menangkap id dari op dan di kirimkan ke database
-      $id = $_GET["id"];
-      
-      $querydelete = "DELETE FROM members WHERE id ='$id'";
-      $kirimdelete = mysqli_query($koneksi,$querydelete);
-      // apabila data berhasil di hapus maka tampilkan pesan
-      if($kirimdelete){
-        $sukses = "members berhasil di hapus";
-      } else {
-        $gagal = "members gagal di hapus";
-      }
-    }
     ?>
 <h1>Halaman Admin Members</h1>
 <?php 
@@ -98,11 +85,11 @@ if($gagal) {
       <td>
         <?php if($looping['status'] == '1'){
           ?>
-        <span class="badge bg-warning text-dark">Aktif</span>
+        <span class="badge bg-success">Aktif</span>
         <?php
         } else{
           ?>
-        <span class="badge bg-light">Belum Aktif</span>
+        <span class="badge bg-secondary">Belum Aktif</span>
         <?php
         } ?>
       </td>

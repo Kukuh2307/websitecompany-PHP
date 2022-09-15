@@ -20,12 +20,13 @@ if(!isset($_GET['email']) or !isset($_GET['kode'])) {
   if($tampildata['status'] == $kode) {
     // maka lakukan update data
     $queryupdate = "UPDATE members set status = '1' where email = '$email'";
-    $kirimselect;
-    $sukses = "Akun anda telah berhasil di buat,silahkan login untuk masuk";
-    echo $email,$kode;
-  } else {
+    $kirimselect = mysqli_query($koneksi,$queryupdate);
+    if($kirimselect){
+      $sukses = "Akun anda telah berhasil di buat,silahkan login untuk masuk";
+    } else {
     $gagal = "kode tidak terverifikasi,akun gagal untuk di buat";
   }
+} 
 }
 
 ?>

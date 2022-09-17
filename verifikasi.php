@@ -26,7 +26,7 @@ if(!isset($_GET['email']) or !isset($_GET['kode'])) {
     } else {
     $gagal = "kode tidak terverifikasi,akun gagal untuk di buat";
   }
-} 
+}
 }
 
 ?>

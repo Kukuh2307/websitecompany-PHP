@@ -1,5 +1,14 @@
 <link rel="stylesheet" href="/css/style.css">
 <?php require 'header.php'?>
+
+<?php 
+// ketika user sudah mendaftar dan masuk ke akunnya,maka ketika mengakses halaman pendaftaran maka akan di arahkan ke halaman index
+if(isset($_SESSION['memebers_email ']) != '') {
+  header("location:index.php");
+  exit();
+}
+
+?>
 <h3>Pendaftaran</h3>
 <?php 
 $email ="";
@@ -110,6 +119,8 @@ if($sukses) {
       <td class="label">Konfirmasi Password</td>
       <td>
         <input type="password" name="konfirmasi_password" class="input">
+        <br>
+        Sudah punya akun?? <a href="<?php url_dasar()?>login.php">Login</a>
       </td>
     </tr>
     <tr>

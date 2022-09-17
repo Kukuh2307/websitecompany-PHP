@@ -2,7 +2,7 @@
 <?php require './header.php' ?>
 
 <div class="warning">
-  Selamat Datang di webseite kami.
+  Selamat Datang <?php echo $_SESSION['nama_lengkap']  ?> di webseite kami.
 </div>
 
 <?php require './footer.php' ?>

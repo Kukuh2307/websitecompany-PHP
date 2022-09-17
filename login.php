@@ -31,7 +31,10 @@ if(isset($_POST['login'])) {
     }
     // jika tidak terjadi error
     if(empty($gagal)){
-      header("location:rahasia.php");
+      $redirect = url_dasar()."/rahasia.php";
+      $_SESSION['members_email'] = $email;
+      $_SESSION['nama_lengkap'] = $tampildata['nama_lengkap'];
+      header("location:$redirect");
       exit();
     }
   }

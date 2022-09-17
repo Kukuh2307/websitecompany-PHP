@@ -71,7 +71,6 @@ if(isset($_POST['simpan'])){
 <?php 
 if($gagal){
   ?>
-<?php echo var_dump($email,$nama) ?>
 <div class="gagal"><?php echo $gagal ?></div>
 <?php
 } 

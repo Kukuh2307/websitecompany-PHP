@@ -340,3 +340,14 @@ td.label {
 .gagal ul {
   margin-left: 10px;
 }
+.gagal a {
+  color: #ffffff;
+}
+/* rahasia */
+.warning {
+  background-color: red;
+  font-size: large;
+  padding: 50px;
+  color: #ffffff;
+  text-align: center;
+}

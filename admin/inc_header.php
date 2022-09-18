@@ -1,5 +1,10 @@
 <?php
 session_start();
+// mencegah user mengakses ilegal melalui url
+if ($_SESSION['admin'] == '') {
+  header("location:login.php");
+  exit();
+}
 include_once("../koneksi/connectdatabase.php");
 include_once("../koneksi//function.php");
 ?>

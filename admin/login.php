@@ -1,6 +1,11 @@
 <link rel="stylesheet" href="/css/style.css">
 <?php
 session_start();
+// apabila user ketika sudah login dan mencoba mengakses form login,maka akan di arahkan ke halaman index
+if (isset($_SESSION['admin']) != '') {
+  header("location:index.php");
+  exit();
+}
 include_once("../koneksi/connectdatabase.php");
 include_once("../koneksi/function.php");
 $username = "";

@@ -1,37 +1,37 @@
 <link rel="stylesheet" href="./css/style.css">
 <?php require './header.php' ?>
-<?php 
+<?php
 $email = "";
 $password = "";
 $gagal = "";
 
-if(isset($_POST['login'])) {
+if (isset($_POST['login'])) {
   $email = $_POST['email'];
-  $password = $_POST ['password'];
-  if($email == '' or $password == ''){
+  $password = $_POST['password'];
+  if ($email == '' or $password == '') {
     $gagal = "Gagal login";
   } else {
     $queryselect = "select * from members where email = '$email'";
-    $kirimselect = mysqli_query($koneksi,$queryselect);
+    $kirimselect = mysqli_query($koneksi, $queryselect);
     $tampildata = mysqli_fetch_array($kirimselect);
     $cekdata = mysqli_num_rows($kirimselect);
     // mengecek apabila status member sudah aktif dan sudah terdaftar atau belum
-    if(isset($tampildata['status']) != 1 && $cekdata > 0){
+    if (isset($tampildata['status']) != 1 && $cekdata > 0) {
       $gagal .= "<li>Akun anda belum aktif</li>";
     }
     // cek apakah password yang di masukkan sama dengan password yang ada di database
-    if(isset($tampildata['password']) != md5($password && $cekdata > 0 && isset($tampildata['status']) == '1')){
+    if (isset($tampildata['password']) != md5($password && $cekdata > 0 && isset($tampildata['status']) == '1')) {
       $gagal .= "<li>Password salah</li>";
     }
     // apabila akun tidak di temukan maka akan disuruh registrasi terlebih dahulu
-    if($cekdata < 1) {
-      $link = url_dasar()."/pendaftaran.php";
+    if ($cekdata < 1) {
+      $link = url_dasar() . "/pendaftaran.php";
       $gagal .= "<li>Akun belum terdaftar</li>";
       $gagal .= "<li>Silahkan melakukan registrasi di link berikut</li>";
     }
     // jika tidak terjadi error
-    if(empty($gagal)){
-      $redirect = url_dasar()."/rahasia.php";
+    if (empty($gagal)) {
+      $redirect = url_dasar() . "/rahasia.php";
       $_SESSION['members_email'] = $email;
       $_SESSION['nama_lengkap'] = $tampildata['nama_lengkap'];
       header("location:$redirect");
@@ -42,20 +42,20 @@ if(isset($_POST['login'])) {
 ?>
 
 <form action="" method="POST">
-  <?php 
-  if($gagal){
-    ?>
+  <?php
+  if ($gagal) {
+  ?>
   <div class="gagal"><?php echo $gagal ?></div>
   <div class="gagal"><a href="<?php echo $link ?>"> >> Klik disini << </a>
   </div>
   <?php
-  } 
+  }
   ?>
   <table>
     <h3>Login halaman members</h3>
     <tr>
       <td class="label">Email</td>
-      <td><input type="text" name="email" class="input" value="<?php echo $email?>" /></td>
+      <td><input type="text" name="email" class="input" value="<?php echo $email ?>" /></td>
     </tr>
 
     <tr>

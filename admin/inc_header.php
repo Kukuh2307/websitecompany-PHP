@@ -1,6 +1,7 @@
-<?php 
-require '../koneksi/connectdatabase.php';
-require '../koneksi/function.php';
+<?php
+session_start();
+include_once("../koneksi/connectdatabase.php");
+include_once("../koneksi//function.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,7 +56,7 @@ require '../koneksi/function.php';
   <header>
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Admin</a>
+        <a class="navbar-brand" href="index.php">Admin</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -63,19 +64,19 @@ require '../koneksi/function.php';
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Admin Halaman</a>
+              <a class="nav-link active" aria-current="page" href="halaman.php">Halaman</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Admin Tutors</a>
+              <a class="nav-link" href="tutors.php">Tutors</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Admin Partners</a>
+              <a class="nav-link" href="partners.php">Partners</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Admin Contact</a>
+              <a class="nav-link" href="members.php">Members</a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">Logout >></a>
+              <a href="logout.php" class="nav-link">Logout >></a>
             </li>
           </ul>
         </div>

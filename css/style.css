@@ -351,3 +351,11 @@ td.label {
   color: #ffffff;
   text-align: center;
 }
+
+/* login admin */
+body .login-admin {
+  width: 100%;
+  max-width: 330px;
+  margin: auto;
+  padding: 15px;
+}

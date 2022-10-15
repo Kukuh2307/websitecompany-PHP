@@ -1,94 +1,94 @@
 <link rel="stylesheet" href="/css/style.css">
-<?php require 'header.php'?>
+<?php require 'header.php' ?>
 
-<?php 
+<?php
 // ketika user sudah mendaftar dan masuk ke akunnya,maka ketika mengakses halaman pendaftaran maka akan di arahkan ke halaman index
-if(isset($_SESSION['memebers_email ']) != '') {
+if (isset($_SESSION['memebers_email ']) != '') {
   header("location:index.php");
   exit();
 }
 
 ?>
 <h3>Pendaftaran</h3>
-<?php 
-$email ="";
+<?php
+$email = "";
 $nama = "";
 $pswd = "";
 $sukses = "";
 $gagal = "";
 
-if(isset($_POST['simpan'])){
+if (isset($_POST['simpan'])) {
   $email = $_POST['email'];
   $nama = $_POST['username'];
   $pswd = $_POST['pswd'];
   $konfirmasipass = $_POST['konfirmasi_password'];
   // cek data
-  if($email =="" or $nama == "" or $pswd =="" or $konfirmasipass == "") {
-    $gagal.= "<li>silahkan memasukkan semua data</li>";
+  if ($email == "" or $nama == "" or $pswd == "" or $konfirmasipass == "") {
+    $gagal .= "<li>silahkan memasukkan semua data</li>";
   }
   // cek email tidak sama dengan yang ada
-  if($email != ''){
+  if ($email != '') {
     $queryselect = "SELECT email FROM members WHERE email='$email'";
-    $kirimselect = mysqli_query($koneksi,$queryselect);
+    $kirimselect = mysqli_query($koneksi, $queryselect);
     $cekemail = mysqli_num_rows($kirimselect);
     // menampilkan error
-    if($cekemail > 0){
-      $gagal .="<li>email sudah terdaftar</li>";
+    if ($cekemail > 0) {
+      $gagal .= "<li>email sudah terdaftar</li>";
     }
     // vallidasi email apabila tidak valid
-    if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
       $gagal .= "<li>email yang dimasukkan tidak valid</li>";
     }
   }
 
   // cek pswd dengan konfirmasi pswd
-  if($pswd != $konfirmasipass){
+  if ($pswd != $konfirmasipass) {
     $gagal .= "<li>password tidak sesuai</li>";
   }
   // syarat minimal huruf dalam pswd
-  if(strlen($pswd) < 8) {
+  if (strlen($pswd) < 8) {
     $gagal .= "<li>panjang karakter minimal 8 huruf</li>";
   }
-  if($nama == "") {
+  if ($nama == "") {
     $gagal = "Silahkan memasukkan nama lengkap anda";
   }
 
   // apabila tidak terjadi kesalahan maka akan mengirimkan email untuk aktifasi account
-  if(empty($gagal)){
-    $status = md5(rand(0,1000));
+  if (empty($gagal)) {
+    $status = md5(rand(0, 1000));
     $judul_email = "Halaman konfirmasi pendaftaran";
     // $isi_email = "akun anda dengan email <b>$email<b> telah siap untuk di gunakan.<br/>>";
     // $isi_email .="silahkan melakukan aktifasi email pada link di bawah ini<br/>";
-    $isi_email = url_dasar()."/verifikasi.php?email=$email&kode=$status";
+    $isi_email = url_dasar() . "/verifikasi.php?email=$email&kode=$status";
 
     // kirim_email($email,$nama_lengkap,$judul_email,$isi_email);
-    
+
     $sukses = "berhasil mendaftarkan account";
 
     // kirim data ke database
     $queryinsert = "insert into members(email,nama_lengkap,password,status) values ('$email','$nama',md5('$pswd'),'$status')";
-    $kiriminsert = mysqli_query($koneksi,$queryinsert);
-    if($kiriminsert){
+    $kiriminsert = mysqli_query($koneksi, $queryinsert);
+    if ($kiriminsert) {
       $sukses = "Proses berhasil,silahkan melakukan verifikasi pada link di bawah ini";
-    } else{
+    } else {
       $gagal = "Gagal melakukan pendaftaran account";
     }
   }
 }
 ?>
 
-<?php 
-if($gagal){
-  ?>
-<div class="gagal"><?php echo $gagal ?></div>
 <?php
-} 
+if ($gagal) {
+?>
+  <div class="gagal"><?php echo $gagal ?></div>
+<?php
+}
 
-if($sukses) {
-  ?>
-<div class="sukses"><?php echo $sukses ?></div>
-<div class="sukses"><a href="<?php echo $isi_email ?>"> >> Klik di sini << </a>
-</div>
+if ($sukses) {
+?>
+  <div class="sukses"><?php echo $sukses ?></div>
+  <div class="sukses"><a href="<?php echo $isi_email ?>"> >> Klik di sini << </a>
+  </div>
 <?php
 }
 ?>
@@ -120,7 +120,7 @@ if($sukses) {
       <td>
         <input type="password" name="konfirmasi_password" class="input">
         <br>
-        Sudah punya akun?? <a href="<?php url_dasar()?>login.php">Login</a>
+        Sudah punya akun?? <a href="<?php url_dasar() ?>login.php">Login</a>
       </td>
     </tr>
     <tr>

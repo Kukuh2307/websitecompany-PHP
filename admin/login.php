@@ -79,8 +79,6 @@ if (isset($_POST['login'])) {
       <button type="submit" class="btn btn-primary" name="login" style="margin-top: 15px;">Login</button>
     </form>
   </div>
-
-
 </body>
 
 </html>
